@@ -1,0 +1,16 @@
+.divBalls {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+    justify-content: center;
+}
+
+.ball {
+    border-radius: 50px;
+    border: 1px solid black;
+    margin: 5px;
+    color: #191;
+    background-color: #fff;
+    width: 20px;
+    height: 20px;
+}
