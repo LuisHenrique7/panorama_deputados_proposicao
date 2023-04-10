@@ -3,12 +3,13 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { proposicaoPorTema } from './data/proposicaoPorTema';
+import { ementasProposicao } from './data/ementasPropocicao';
 
 import MyDrawer from './components/MyDrawer';
 import MainScreen from './pages/MainScreen';
 import ThemeScreen from './pages/ThemeScreen';
 import GroupScreen from './pages/GroupScreen';
-import Abstract from './pages/Abstract';
+import AbstractScreen from './pages/AbstractScreen';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
             <Route path='/' element={<MainScreen />} />
             <Route path='temas' element={<ThemeScreen proposicaoPorTema={proposicaoPorTema} />} />
             <Route path='grupos' element={<GroupScreen />} />
-            <Route path='ementas' element={<Abstract />} />
+            <Route path='ementas' element={<AbstractScreen ementasProposicao={ementasProposicao} />} />
           </Routes>
         </MyDrawer>
       </BrowserRouter>

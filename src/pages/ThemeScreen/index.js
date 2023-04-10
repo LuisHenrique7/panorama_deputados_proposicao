@@ -47,13 +47,13 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
 
     useEffect(() => {
         async function fetchData() {
+            await setItemOffset(0);
             // Fetch items from another resources.
             const endOffset = itemOffset + itemsPerPage;
             // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
             // setCurrentItems(items.slice(itemOffset, endOffset));
             await handleChangeStateItems(endOffset);
             await setPageCount(Math.ceil(currentItemsCount / itemsPerPage));
-            await setItemOffset(0);
             console.log("effect 1")
         }
         fetchData();
@@ -94,31 +94,31 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
         return 0;
     };
 
-    const handleChangeStateItems = (endOffset) => {
+    async function handleChangeStateItems(endOffset) {
         const array = [];
         for (var index = 0; index < Object.keys(proposicaoPorTema['id']).length; ++index) {
-            if (showNoProposition) {
-                array.push(
-                    {
-                        id: proposicaoPorTema['id'][index],
-                        name: proposicaoPorTema['nome'][index],
-                        value: proposicaoPorTema[themeSelected][index].length,
-                        index: index
-                    }
-                );
+        if (showNoProposition) {
+            array.push(
+                {
+                    id: proposicaoPorTema['id'][index],
+                    name: proposicaoPorTema['nome'][index],
+                    value: proposicaoPorTema[themeSelected][index].length,
+                    index: index
+                }
+            );
 
-            } else if (!showNoProposition && proposicaoPorTema[themeSelected][index].length > 0) {
-                array.push(
-                    {
-                        id: proposicaoPorTema['id'][index],
-                        name: proposicaoPorTema['nome'][index],
-                        value: proposicaoPorTema[themeSelected][index].length,
-                        index: index
-                    }
-                );
-            }
+        } else if (!showNoProposition && proposicaoPorTema[themeSelected][index].length > 0) {
+            array.push(
+                {
+                    id: proposicaoPorTema['id'][index],
+                    name: proposicaoPorTema['nome'][index],
+                    value: proposicaoPorTema[themeSelected][index].length,
+                    index: index
+                }
+            );
+        }
         };
-
+        
         array.sort( compare );
         setCurrentItemsCount(array.length);
         const newCurrentItems = [];
@@ -184,7 +184,7 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
     return (
         <div className='containerThemeScreen'>
             <div className='headerThemeScreen'>
-                <h1>ThemeScreen</h1>
+                <h1>Deputados por Tema da Proposição</h1>
             </div>
 
             <div 
@@ -193,19 +193,8 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
                     marginTop: '10px', alignSelf: 'center', backgroundColor: '#FFF', padding: '20px 0px'
                 }}
             >
-                <div style={{display:'flex', width:'40%', minWidth: '90px', alignItems: 'center'}}>
-                    <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Tema Selecionado</InputLabel>
-                        <Select
-                            value={themeSelected}
-                            label="Selecione um tema"
-                            onChange={handleChangeStateThemeSelected}
-                        >
-                            {themes.map((t, i) => (
-                                <MenuItem value={t} key={i}>{t}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>     
+                <div style={{display:'flex', width:'60%', minWidth: '90px', alignItems: 'center'}}>
+                    <h3>Tema selecionado: {themeSelected}</h3>  
                 </div>
                 <Button
                     variant={!filterScreen ? "outlined" : "contained"}
@@ -237,6 +226,35 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
                 <div className='containerSetupThemeScreen'>
                     <div style={{display:'flex', width:'100%', justifyContent: 'space-around', marginTop: '50px'}}>
                         <div style={{display:'flex', width:'40%'}}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Tema Selecionado</InputLabel>
+                            <Select
+                                value={themeSelected}
+                                label="Selecione um tema"
+                                onChange={handleChangeStateThemeSelected}
+                            >
+                                {themes.map((t, i) => (
+                                    <MenuItem value={t} key={i}>{t}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        </div>
+                        <div style={{display:'flex', width:'20%'}}>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Exibir deputados sem proposições</InputLabel>
+                                <Select
+                                    value={showNoProposition}
+                                    label="Exibir deputados sem proposições"
+                                    onChange={handleChangeStateNoProposition}
+                                >
+                                    <MenuItem value={false}>Não</MenuItem>
+                                    <MenuItem value={true}>Sim</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </div>
+                    </div>
+                    <div style={{display:'flex', width:'100%', justifyContent: 'space-around', marginTop: '50px'}}>
+                        <div style={{display:'flex', width:'40%'}}>
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">Atributo de Ordenação</InputLabel>
                                 <Select
@@ -249,7 +267,7 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
                                 </Select>
                             </FormControl>
                         </div>
-                        <div style={{display:'flex', width:'40%'}}>
+                        <div style={{display:'flex', width:'20%'}}>
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">Tipo de Ordenação</InputLabel>
                                 <Select
@@ -262,19 +280,6 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
                                 </Select>
                             </FormControl>
                         </div>
-                    </div>
-                    <div style={{display:'flex', width:'20%', marginTop: '50px', marginLeft: '5%'}}>
-                        <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Exibir deputados sem proposições</InputLabel>
-                            <Select
-                                value={showNoProposition}
-                                label="Exibir deputados sem proposições"
-                                onChange={handleChangeStateNoProposition}
-                            >
-                                <MenuItem value={false}>Não</MenuItem>
-                                <MenuItem value={true}>Sim</MenuItem>
-                            </Select>
-                        </FormControl>
                     </div>
                 </div>
             )}
