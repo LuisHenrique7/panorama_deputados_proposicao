@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import Plot from 'react-plotly.js';
 
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
@@ -40,6 +41,11 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
     const [currentItemsCount, setCurrentItemsCount] = useState(items.length);
     const [pageCount, setPageCount] = useState(0);
 
+    const [biggersName, setBiggerName] = useState([]);
+    const [biggersCount, setBiggerCount] = useState([]);
+    const [minorsName, setMinorsName] = useState([]);
+    const [minorsCount, setMinorsCount] = useState([]);
+
     const [valueVisualization, setValueVisualization] = useState(0);
     const handleChangeValueVisualization = (event, newValueVisualization) => {
         setValueVisualization(newValueVisualization);
@@ -54,7 +60,7 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
             // setCurrentItems(items.slice(itemOffset, endOffset));
             await handleChangeStateItems(endOffset);
             await setPageCount(Math.ceil(currentItemsCount / itemsPerPage));
-            console.log("effect 1")
+            // console.log("effect 1")
         }
         fetchData();
     }, [itemsPerPage, themeSelected, sortingAttribute, sortingType, showNoProposition]);
@@ -66,12 +72,22 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
         // setCurrentItems(items.slice(itemOffset, endOffset));
         handleChangeStateItems(endOffset);
         setPageCount(Math.ceil(currentItemsCount / itemsPerPage));
-        console.log("effect 2")
+        // console.log("effect 2")
     }, [itemOffset]);
 
     const handlePageClick = (event) => {
         const newOffset = event.selected * itemsPerPage % items.length;
         setItemOffset(newOffset);
+    };
+
+    const orders = ( a, b ) => {
+        if ( a['value'] < b['value'] ){
+            return -1;
+        }
+        if ( a['value'] > b['value'] ){
+            return 1;
+        }
+        return 0;
     };
 
     const compare = ( a, b ) => {
@@ -118,6 +134,25 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
             );
         }
         };
+
+        array.sort( orders );
+        const biggerName = [];
+        const biggerCount = [];
+        const minorsName = [];
+        const minorsCount = [];
+        array.slice(0, 5).map((n) => {
+            minorsName.push(n['name']);
+            minorsCount.push(n['value']);
+        });
+
+        array.slice(array.length - 5, array.length).map((n) => {
+            biggerName.push(n['name']);
+            biggerCount.push(n['value']);
+        });
+        setBiggerName(biggerName);
+        setBiggerCount(biggerCount);
+        setMinorsName(minorsName);
+        setMinorsCount(minorsCount);
         
         array.sort( compare );
         setCurrentItemsCount(array.length);
@@ -167,6 +202,7 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
     const deputiesIds = [];
     const deputiesNames = [];
     const count = [];
+
     for (var index = 0; index < arrayDeputiesThemes.length; ++index) {
         if (showNoProposition) {
             deputiesIds.push(arrayDeputiesThemes[index]['id']);
@@ -179,7 +215,9 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
             count.push(arrayDeputiesThemes[index]['value']);
         }
     };
-    console.log(currentItems);
+
+    // console.log(arrayDeputiesThemes.slice(0,5).map((e, i) => e['name']));
+    // console.log(minorsNames);
 
     return (
         <div className='containerThemeScreen'>
@@ -213,7 +251,6 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
                             onChange={handleChangeValueVisualization}
                             variant="scrollable"
                             scrollButtons="auto"
-                            centered
                         >
                             <Tab label="Exibição com Bolinhas" />
                             <Tab label="Gráfico de Barras" />
@@ -317,7 +354,48 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
             )}
 
             {!filterScreen && valueVisualization === 1 && (
-                <div>
+                <div style={{marginTop: '30px'}}>
+                    <Plot
+                        // data = {[
+                        //     {
+                        //         type: "bar",
+                        //         x: minorsCount.concat(biggersCount),
+                        //         y: minorsName.concat(biggersName),
+                        //         orientation: "h",
+                        //     }
+                        // ]}
+                        data = {[
+                            {
+                                type: "bar",
+                                x: minorsCount,
+                                y: minorsName,
+                                orientation: "h",
+                                name: 'Deputados com menos proposições',
+                                marker: {
+                                    color: 'red'
+                                }
+                            },
+                            {
+                                type: "bar",
+                                x: biggersCount,
+                                y: biggersName,
+                                orientation: "h",
+                                name: 'Deputados com mais proposições',
+                                marker: {
+                                    color: 'blue'
+                                }
+                            }
+                        ]}
+                        layout = {
+                            {
+                                title: "Deputados mais e menos atuantes no tema",
+                                showgrid: true,
+                                margin: {"t": 50, "b": 50, "l": 110, "r": 10},
+                                showticklabels: true,
+                            }
+                        } 
+                    />
+                    
                 </div>
             )}
 
