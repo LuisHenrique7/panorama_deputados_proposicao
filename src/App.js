@@ -10,6 +10,7 @@ import MainScreen from './pages/MainScreen';
 import ThemeScreen from './pages/ThemeScreen';
 import GroupScreen from './pages/GroupScreen';
 import AbstractScreen from './pages/AbstractScreen';
+import AnalysisThemesScreen from './pages/AnalysisThemesScreen';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <MyDrawer>
           <Routes>
             <Route path='/' element={<MainScreen />} />
+            <Route path='analiseTemas' element={<AnalysisThemesScreen proposicaoPorTema={proposicaoPorTema} />} />
             <Route path='temas' element={<ThemeScreen proposicaoPorTema={proposicaoPorTema} />} />
             <Route path='grupos' element={<GroupScreen />} />
             <Route path='ementas' element={<AbstractScreen ementasProposicao={ementasProposicao} />} />

@@ -22,6 +22,7 @@ const pages = {
   '/': "Tela Inicial"
 };
 const pagesDeputies = {
+  'analiseTemas': 'Temas das Proposições',
   'temas': "Deputados por Tema da Proposição",
   'grupos': "Grupos",
   'ementas': "Ementas",
