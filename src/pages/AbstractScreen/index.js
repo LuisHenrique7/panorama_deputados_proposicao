@@ -86,8 +86,8 @@ const AbstractScreen = ({ ementasProposicao }) => {
 
       
       <div style={{
-          width: "30%", backgroundColor: "#fff", padding: "10px 0px",
-          marginBottom: "20px"
+          width: "30%", backgroundColor: "#fff", padding: "10px 5px",
+          marginBottom: "20px", display:'flex', justifyContent: 'center'
       }}>
         <Button
             variant={!filterScreen ? "outlined" : "contained"}
@@ -97,9 +97,55 @@ const AbstractScreen = ({ ementasProposicao }) => {
         </Button>  
       </div>
 
+      {!searched && !filterScreen && (
+        <div style={
+          {
+            display: 'flex', flexDirection: 'column',
+            backgroundColor: '#fff', width: '98%',
+            padding: '20px 20px'
+          }
+        }>
+          <h2>Busque ementas das proposições através de palavras e/ou trechos.</h2>
+          <h3 style={{marginTop: '20px'}}>Na tela de busca são disponibilizadas 3 funções:</h3>
+          <div style={{display: 'flex', textAlign: 'left', flexDirection: 'column', border: '1px solid', borderRadius: '10px'}}>
+            <h4 style={{marginTop: '20px', marginLeft: '20px', marginRight: '20px'}}>
+              <strong>Buscar trecho:</strong> a lista de resultados exibirá todas as ementas que possuam o trecho 
+              preenchido no campo. Caso seja a primeira busca o termo será adicionado na listagem de termos buscados,
+              caso contrário a lista de termos buscados será apagada e apenas o novo termo deverá constar nela.
+            </h4>
+            <h4 style={{marginTop: '20px', marginLeft: '20px', marginRight: '20px'}}>
+              <strong>Adicionar trecho a busca:</strong> o trecho adicionado será buscado na lista de resultados da 
+              busca anterior. O termo será adicionado na listagem de termos buscados.
+            </h4>
+            <h4 style={{marginTop: '20px', marginLeft: '20px', marginRight: '20px'}}>
+              <strong>Remover trecho buscado:</strong> ao clicar no ícone de lixeira ao lado de um dos termos procurados ele será
+              removido da lista de termos buscados e uma nova busca será realizada com os demais termos dessa lista.
+            </h4>
+          </div>
+          <h3 style={{marginTop: '70px'}}>Exemplos:</h3>
+          <div style={{display: 'flex', textAlign: 'left', flexDirection: 'column', border: '1px solid', borderRadius: '10px'}}>
+            <h4 style={{marginTop: '20px', marginLeft: '20px', marginRight: '20px'}}>
+              Exemplo 1: Busque pela palavra <strong>aviação</strong>, em seguida refine os resultados 
+              adicionando <strong>2023</strong> na busca para listar todas
+              ementas que possuam aviação e 2023 em seu texto.
+            </h4>
+            <h4 style={{marginTop: '20px', marginLeft: '20px', marginRight: '20px'}}>
+              Exemplo 2: Busque pelo trecho <strong>desenvolvimento econômico</strong>, em seguida refine os resultados 
+              adicionando a palavra <strong>lei</strong> na busca para listar todas
+              ementas que possuam os termos desenvolvimento econômico e lei em seu texto.
+            </h4>
+          </div>
+        </div>
+      )}
+
       {filterScreen && (
         <div className='divFilterScreenAbstractScreen'>
-          <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+          <div 
+            style={window.innerWidth >= 710 ?
+                    {display: 'flex', flexDirection: 'row', justifyContent: 'center'} :
+                    {display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap'}
+            }
+          >
             <TextField
                 id="outlined-basic"
                 label="Trecho da Ementa"
@@ -116,7 +162,12 @@ const AbstractScreen = ({ ementasProposicao }) => {
               {!searched ? "Buscar" : "Realizar nova busca"}
             </Button>  
           </div>
-          <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: '20px'}}>
+          <div
+            style={window.innerWidth >= 710 ?
+                    {display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: '20px'} :
+                    {display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: '20px', flexWrap: 'wrap'}
+            }
+          >
             <TextField
                 id="outlined-basic"
                 label="Adicionar trecho na busca"

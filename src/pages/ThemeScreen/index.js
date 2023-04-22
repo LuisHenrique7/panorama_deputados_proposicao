@@ -227,7 +227,7 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
 
             <div 
                 style={{
-                    display: 'flex', width: '60%', flexDirection: 'row', justifyContent: 'space-around',
+                    display: 'flex', minWidth: '60%', flexDirection: 'row', justifyContent: 'space-around',
                     marginTop: '10px', alignSelf: 'center', backgroundColor: '#FFF', padding: '20px 0px'
                 }}
             >
@@ -390,7 +390,7 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
                             {
                                 title: "Deputados mais e menos atuantes no tema",
                                 showgrid: true,
-                                margin: {"t": 50, "b": 50, "l": 110, "r": 10},
+                                margin: {"t": 80, "b": 50, "l": 110, "r": 10},
                                 showticklabels: true,
                             }
                         } 
@@ -400,7 +400,7 @@ const ThemeScreen = ({ proposicaoPorTema }) => {
             )}
 
             {!filterScreen && valueVisualization === 0 && (
-                <div className='containerButtonsPaginationDeputiesList'>
+                <div>
                     <ReactPaginate
                         nextLabel="Próximo >"
                         onPageChange={handlePageClick}

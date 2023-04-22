@@ -1,0 +1,15 @@
+.containerMainScreen {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    background-color: #2f7958;
+}
+
+.headerMainScreen {
+    background-color: silver;
+    width: 100%;
+    padding: 5px 0px;
+    margin-bottom: 10px;
+}

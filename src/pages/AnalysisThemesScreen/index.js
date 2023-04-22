@@ -35,7 +35,7 @@ const AnalysisThemesScreen = ({ proposicaoPorTema }) => {
         themesCount.push(aux.filter( onlyUnique ).length);
     });
 
-    console.log(themesCount);
+    // console.log(themesCount);
 
     const [valueVisualization, setValueVisualization] = useState(0);
     const handleChangeValueVisualization = (event, newValueVisualization) => {
@@ -58,7 +58,6 @@ const AnalysisThemesScreen = ({ proposicaoPorTema }) => {
                     >
                         <Tab label="Exibição com Bolinhas" />
                         <Tab label="Gráfico de Pizza" />
-                        <Tab label="Gráfico de Violino" />
                         <Tab label="Gráfico de Barras" />
                     </Tabs>
                 </Box>
@@ -111,7 +110,7 @@ const AnalysisThemesScreen = ({ proposicaoPorTema }) => {
                                     title: "Percentagem de proposições por tema",
                                     height: 1000,
                                     width: 1000,
-                                    margin: {"t": 50, "b": 50, "l": 50, "r": 50},
+                                    margin: {"t": 80, "b": 50, "l": 50, "r": 50},
                                     showlegend: false,
                                 }
                             }
@@ -121,7 +120,7 @@ const AnalysisThemesScreen = ({ proposicaoPorTema }) => {
                 </div>
             )}
 
-            {valueVisualization === 3 && (
+            {valueVisualization === 2 && (
                 <div style={{marginTop: '30px'}}>
                     <div>
                         <Plot
