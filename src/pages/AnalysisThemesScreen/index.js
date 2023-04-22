@@ -138,7 +138,7 @@ const AnalysisThemesScreen = ({ proposicaoPorTema }) => {
                                     height: 1000,
                                     width: 1000,
                                     showgrid: true,
-                                    margin: {"t": 50, "b": 50, "l": 300, "r": 10},
+                                    margin: {"t": 80, "b": 50, "l": 300, "r": 10},
                                     showticklabels: true
                                 }
                             } 

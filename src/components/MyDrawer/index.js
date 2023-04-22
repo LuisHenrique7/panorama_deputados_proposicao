@@ -105,7 +105,7 @@ export default function PersistentDrawerLeft({ children }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Prometeu: Panorama dos Deputados e Proposições
+            Prometeu: Panorama da Câmara
           </Typography>
         </Toolbar>
       </AppBar>

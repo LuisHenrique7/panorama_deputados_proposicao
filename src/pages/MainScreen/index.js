@@ -20,7 +20,7 @@ const MainScreen = () => {
           <h2>Quais temas recebem mais atenção dos deputados federais?</h2>
           <h2>O deputado no qual votei está ligado a proposições com quais temas?</h2>
           <h2 style={{marginTop: '20px'}}>
-            <strong>A aplicação Prometeu: Panorama dos Deputados e Proposições te mostra a resposta.</strong>
+            <strong>A aplicação Prometeu: Panorama da Câmara te mostra a resposta.</strong>
           </h2>
       </div>
 
@@ -67,6 +67,21 @@ const MainScreen = () => {
         <div style={
           {
             display: 'flex', flexDirection: 'column',
+            backgroundColor: '#fff', width: '60%',
+            marginTop: '40px', padding: '20px 20px'
+          }
+        }>
+          <h2 style={{marginTop: '20px'}}><strong>O que é Prometeu?</strong></h2>
+          <div style={{display: 'flex', textAlign: 'left', flexDirection: 'column', border: '1px solid', borderRadius: '10px'}}>
+            <h3 style={{marginTop: '20px', marginLeft: '20px', marginRight: '20px'}}>
+              É uma base de aplicações voltadas a divulgação de dados dos membros do governo brasileiro.
+            </h3>
+          </div>
+        </div>
+
+        <div style={
+          {
+            display: 'flex', flexDirection: 'column',
             backgroundColor: '#fff', minWidth: '40%',
             marginTop: '40px', padding: '20px 20px'
           }
@@ -78,6 +93,26 @@ const MainScreen = () => {
             </h3>
             <h4 style={{marginLeft: '20px', marginRight: '20px'}}>https://dadosabertos.camara.leg.br/</h4>
           </div>
+        </div>
+
+        <div style={
+          {
+            display: 'flex', flexDirection: 'row',
+            backgroundColor: 'silver', width: '100%',
+            marginTop: '60px', padding: '50px 0px',
+            justifyContent: 'space-between', alignItems: 'center',
+            
+          }
+        }>
+          <h3 style={{marginLeft: '20px'}}><strong>Universidade Federal de Sergipe</strong></h3>
+          <div style={{margin: '0px 20px'}}>
+            <h3>
+              <strong>Autores:</strong>
+              <h3>Luis Henrique Santos Nascimento</h3>
+              <h3 style={{marginTop: '10px'}}>Hendrik Teixeira Macedo</h3>
+            </h3>
+          </div>
+          <h3 style={{marginRight: '20px'}}>2023</h3>
         </div>
     </div>
   )
